@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le prenotazioni - Pizzeria Da Mario</title>
+    <link rel="stylesheet" href="styles_pren_vis.css">
+</head>
+<body>
+
+    <header>
+        <h1>🍕 Pizzeria Da Mario</h1>
+        <p>Il vero sapore di Molfetta dal 1987</p>
+    </header>
+
+    <nav class="top-nav">
+        <a href="index.html">🏠 Home</a>
+        <a href="prenotazione.html">📅 Prenota un Tavolo</a>
+        <a href="visualizza.html" aria-current="page">📋 Le Prenotazioni</a>
+    </nav>
+
+    <main class="wide">
+        <div class="bar">
+            <div>
+                <h2>Archivio prenotazioni</h2>
+                <p class="sub" id="conteggio"></p>
+            </div>
+            <div class="azioni">
+                <a class="btn" href="prenotazione.html">Nuova prenotazione</a>
+                <button class="sec" id="svuota" type="button">Svuota archivio</button>
+            </div>
+        </div>
+
+        <div id="messaggio" role="status"></div>
+
+        <div class="box scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Data</th>
+                        <th>Turno</th>
+                        <th>Ora</th>
+                        <th>Persone</th>
+                        <th>Sala</th>
+                        <th>Note</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="righe"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Pizzeria Da Mario - Via Banchina San Corrado, 12 - Molfetta (BA)</p>
+        <p>Tel: 080 123 4567 | P.IVA 01234567890</p>
+    </footer>
+
+    <script>
+        // Legge un parametro dall'URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Carica le prenotazioni dal localStorage
+        function caricaPrenotazioni() {
+            const salvate = localStorage.getItem("prenotazioni");
+            return salvate ? JSON.parse(salvate) : [];
+        }
+
+        // Salva le prenotazioni nel localStorage
+        function salvaPrenotazioni(lista) {
+            localStorage.setItem("prenotazioni", JSON.stringify(lista));
+        }
+
+        // Elabora l'eventuale nuova prenotazione inviata tramite parametri URL
+        function gestisciNuovaPrenotazione() {
+            const nome = getQueryParam("nome");
+            if (nome) {
+                const nuova = {
+                    id: Date.now().toString().slice(-5),
+                    nome: nome,
+                    cognome: getQueryParam("cognome"),
+                    email: getQueryParam("email"),
+                    telefono: getQueryParam("telefono") || "-",
+                    data: getQueryParam("data"),
+                    turno: getQueryParam("turno"),
+                    ora: getQueryParam("ora"),
+                    persone: getQueryParam("persone"),
+                    sala: getQueryParam("sala"),
+                    note: getQueryParam("note") || "-",
+                };
+                const lista = caricaPrenotazioni();
+                lista.push(nuova);
+                salvaPrenotazioni(lista);
+
+                // Messaggio di conferma
+                const box = document.getElementById("messaggio");
+                const conferma = document.createElement("div");
+                conferma.className = "conferma";
+                conferma.textContent =
+                    "Prenotazione confermata: " + nuova.nome + " " + nuova.cognome +
+                    ", " + nuova.persone + " persone, " + nuova.data + " alle " + nuova.ora + ".";
+                box.appendChild(conferma);
+
+                // Pulisce l'URL così un refresh non duplica la prenotazione
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // Crea una cella di tabella con testo sicuro (niente HTML iniettato)
+        function cella(testo, classe) {
+            const td = document.createElement("td");
+            td.textContent = testo;
+            if (classe) td.className = classe;
+            return td;
+        }
+
+        // Renderizza le righe nella tabella
+        function mostraPrenotazioni() {
+            const lista = caricaPrenotazioni();
+            const tbody = document.getElementById("righe");
+            const conteggio = document.getElementById("conteggio");
+            tbody.innerHTML = "";
+            conteggio.textContent = "Totale prenotazioni salvate: " + lista.length;
+
+            if (lista.length === 0) {
+                tbody.innerHTML =
+                    '<tr><td colspan="12" class="empty-msg">Nessuna prenotazione presente. Prenota il primo tavolo!</td></tr>';
+                return;
+            }
+
+            lista.forEach(function (p, index) {
+                const tr = document.createElement("tr");
+                tr.appendChild(cella("#" + p.id));
+                tr.appendChild(cella(p.nome));
+                tr.appendChild(cella(p.cognome));
+                tr.appendChild(cella(p.email));
+                tr.appendChild(cella(p.telefono));
+                tr.appendChild(cella(p.data));
+                tr.appendChild(cella(p.turno));
+                tr.appendChild(cella(p.ora));
+                tr.appendChild(cella(p.persone));
+                tr.appendChild(cella(p.sala));
+                tr.appendChild(cella(p.note, "note"));
+
+                const td = document.createElement("td");
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "btn-delete";
+                btn.textContent = "Elimina";
+                btn.addEventListener("click", function () {
+                    eliminaPrenotazione(index);
+                });
+                td.appendChild(btn);
+                tr.appendChild(td);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Elimina una singola prenotazione
+        function eliminaPrenotazione(index) {
+            const lista = caricaPrenotazioni();
+            lista.splice(index, 1);
+            salvaPrenotazioni(lista);
+            mostraPrenotazioni();
+        }
+
+        // Svuota l'archivio completo
+        document.getElementById("svuota").addEventListener("click", function () {
+            if (confirm("Sei sicuro di voler cancellare tutte le prenotazioni dall'archivio?")) {
+                localStorage.removeItem("prenotazioni");
+                document.getElementById("messaggio").innerHTML = "";
+                mostraPrenotazioni();
+            }
+        });
+
+        // Inizializzazione al caricamento
+        document.addEventListener("DOMContentLoaded", function () {
+            gestisciNuovaPrenotazione();
+            mostraPrenotazioni();
+        });
+    </script>
+</body>
+</html>
