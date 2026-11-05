@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti - Pizzeria La Bella Napoli</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+
+        body {
+            background-color: #fff8f0;
+            color: #3a2a1a;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #b22222;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid #2e7d32;
+        }
+
+        header h1 {
+            font-size: 3em;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #fff8f0;
+        }
+
+        .hero h2 {
+            font-size: 2em;
+            color: #b22222;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+            background-color: #f5e6d3;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            background-color: #b22222;
+            color: white;
+            padding: 20px 35px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            text-align: center;
+            border: 3px solid #b22222;
+        }
+
+        .nav-buttons a:hover {
+            background-color: white;
+            color: #b22222;
+            transform: translateY(-3px);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .info, .contact-form {
+            background-color: #f5e6d3;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #b22222;
+        }
+
+        h3 {
+            color: #b22222;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .info p {
+            margin-bottom: 18px;
+        }
+
+        .info a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .info a:hover {
+            text-decoration: underline;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border: 2px solid #b22222;
+            border-radius: 6px;
+            background-color: #fff8f0;
+            color: #3a2a1a;
+            font-size: 1em;
+        }
+
+        textarea {
+            height: 130px;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid #2e7d32;
+        }
+
+        button {
+            background-color: #b22222;
+            color: white;
+            padding: 15px 25px;
+            border: 3px solid #b22222;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: white;
+            color: #b22222;
+        }
+
+        .map {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            padding: 20px;
+        }
+
+        .map h3 {
+            text-align: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 3px solid #2e7d32;
+            border-radius: 10px;
+        }
+
+        footer {
+            background-color: #3a2a1a;
+            color: #fff8f0;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        footer p {
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .hero h2 {
+                font-size: 1.5em;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+                margin: 15px auto;
+            }
+
+            .nav-buttons a {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .info, .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🍕 Pizzeria Da Mario</h1>
+        <p>La vera pizza italiana, fatta con passione!</p>
+    </header>
+
+    <section class="hero">
+        <h2>Contattaci</h2>
+        <p>
+            Hai domande, vuoi prenotare un tavolo o ordinare una pizza?
+            Siamo a tua disposizione! Contattaci oppure vieni a trovarci.
+        </p>
+    </section>
+
+    <nav class="nav-buttons">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Il nostro Menu</a>
+        <a href="prenotazioni.html">Prenotazione</a>
+        <a href="contatti.html">Contatti</a>
+    </nav>
+
+    <main>
+
+        <div class="container">
+
+            <section class="info">
+                <h3>📍 Dove trovarci</h3>
+
+                <p>
+                    <strong>Indirizzo:</strong><br>
+                    Via Roma 25, 76121 Molfetta (BA)
+                </p>
+
+                <p>
+                    <strong>Telefono:</strong><br>
+                    <a href="tel:+390881123456">
+                        0881 123456
+                    </a>
+                </p>
+
+                <p>
+                    <strong>Email:</strong><br>
+                    <a href="mailto:info@damario.it">
+                        info@labellanapoli.it
+                    </a>
+                </p>
+
+                <p>
+                    <strong>Orari di apertura:</strong><br>
+                    Lunedì - Domenica<br>
+                    12:00 - 14:30<br>
+                    19:00 - 23:30
+                </p>
+
+                <p>
+                    <strong>Seguici sui social:</strong><br>
+                    Instagram: @damario<br>
+                    Facebook: Pizzeria da Mario
+                </p>
+            </section>
+
+            <section class="contact-form">
+                <h3>✉️ Scrivici un messaggio</h3>
+
+                <form onsubmit="inviaMessaggio(event)">
+
+                    <input
+                        type="text"
+                        placeholder="Il tuo nome"
+                        required>
+
+                    <input
+                        type="email"
+                        placeholder="La tua email"
+                        required>
+
+                    <input
+                        type="tel"
+                        placeholder="Il tuo numero di telefono">
+
+                    <textarea
+                        placeholder="Scrivi il tuo messaggio..."
+                        required></textarea>
+
+                    <button type="submit">
+                        Invia messaggio
+                    </button>
+
+                </form>
+            </section>
+
+        </div>
+
+        <section class="map">
+            <h3>🗺️ Vieni a trovarci!</h3>
+
+            <iframe
+                src="https://maps.google.com/maps?q=Barletta%20Italia&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                loading="lazy">
+            </iframe>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Pizzeria da Mario - Tutti i diritti riservati</p>
+        <p>🍕 La passione per la pizza, ogni giorno!</p>
+    </footer>
+
+    <script>
+        function inviaMessaggio(event) {
+            event.preventDefault();
+
+            alert("Grazie per averci contattato! Ti risponderemo presto.");
+
+            event.target.reset();
+        }
+    </script>
+
+</body>
+</html>
