@@ -103,7 +103,7 @@ Riceve i dati del form tramite parametri URL, li salva nel localStorage del brow
 
 ---
 
-## 9. Conclusioni
+## 6. Conclusioni
 
 L'esercitazione ha permesso al gruppo di mettere in pratica una modalità di lavoro collaborativa: ripartizione dei compiti, sviluppo su branch separati e integrazione tramite Pull Request. Gli obiettivi richiesti (home page, menù e contatti) sono stati raggiunti, e il sito è stato arricchito con un sistema di prenotazione funzionante.
 
